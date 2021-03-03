@@ -1,51 +1,32 @@
-import React,{useState, useEffect} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { Router } from 'react-router';
+// import { isAuthorization } from 'helpers/utils';
+import { createBrowserHistory } from 'history';
+import Test from './state/UsersList';
+import List from './state/List';
+import './assets/styles/index.css';
+import AuthLayout from './layout/login.layout';
 
-function App() { 
-  const [count, setCount] = useState<number>(0);
-  // console.log(match);
-  // enum Color {
-  //   Red = 1,
-  //   Green = 'Green',
-  //   Blue = 'Blue',
-  // }
-  // let c: Color = Color.Red;
-  enum Color {
-    Red = 1,
-    Green,
-    Blue,
-  }
-  let colorName: string = Color[2];
-  console.log(colorName);
-  useEffect(() => {
-    const interval = setInterval(()=>{
-      setCount((count)=>count + 1);
-    }, 1000)
-    return () => {
-      clearInterval(interval);
-    }
-  }, [count])
 
+const App: FC = () => {
+  const router = createBrowserHistory();
+
+  // useEffect(() => {
+  //   if (!isAuthorization()) {
+  //     router.push('/auth/login');
+  //   }
+  // }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React + {count}
-        </a>
-      </header>
-    </div>
+    <Router history={router}>
+      <Switch>
+        {/* <Route component={List} path="/doctor" exact={false} />
+        <Route component={List} path="/app" exact={false} /> */}
+        <Route component={AuthLayout} path="/" exact={false} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
